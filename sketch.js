@@ -39,7 +39,7 @@ function generateSquares() {
   let currentFont = /[\u3131-\uD79D]/.test(inputText) ? fontEnglish : fontKorean;
   /[a-zA-Z0-9]/.test(inputText) ? currentFont = fontEnglish : currentFont = fontKorean;
   let points = currentFont.textToPoints(inputText, 0, 0, 200, {
-    sampleFactor: 0.1,
+    sampleFactor: 0.05,
     simplifyThreshold: 0
   });
 
@@ -97,15 +97,23 @@ class Square {
     translate(this.x, this.y, this.z);
 
     // Calculate diagonal position for gradient
-    let diagonalPosition = (this.x + this.y + this.z + this.w * 15 + this.h + frameCount * 0.005) % 1;
+    let diagonalPosition = (this.x % 2 + this.y + this.z + this.w * 15 + this.h + frameCount * 0.003) % 1;
 
     // Define colors for the gradient
     let colors = [
-      color(255, 244, 48), // Yellow
+      color(213, 45, 0), // Dark Orange
+      color(255, 154, 86), // Orange
+      color(255, 223, 0), // Light Orange
       color(255, 255, 255), // White
-      color(156, 89, 209), // Purple
-      color(0, 0, 0) // Black
+      color(211, 98, 164), // Pink
+      color(163, 2, 98) // Dark Pink
     ];
+    // let colors = [
+    //   color(255, 244, 48), // Yellow
+    //   color(255, 255, 255), // White
+    //   color(156, 89, 209), // Purple
+    //   color(0, 0, 0) // Black
+    // ];
     // let colors = [
     //   color(255, 0, 0), // Red
     //   color(255, 165, 0), // Orange
@@ -130,7 +138,7 @@ class Square {
     fill(gradientColor);
     // noStroke(); // Remove stroke
     stroke(255); // White stroke
-    strokeWeight(0.25); // Adjust stroke weight as needed
+    strokeWeight(0.15); // Adjust stroke weight as needed
 
     box(this.w, this.h, this.w);
     pop();
