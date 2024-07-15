@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import p5 from 'p5';
 import Sketch from './sketch';
 import './App.css';
+import { Spin } from 'antd';
 import ControlPanel from './components/ControlPanel';
 import InputPanel from './components/InputPanel';
 import InfoMessage from './components/InfoMessage';
@@ -13,12 +14,16 @@ const App: React.FC = () => {
   const [inputText, setInputText] = useState("모두의 연구소");
   const [selectedPalette, setSelectedPalette] = useState<Palette>('lesbian');
   const [frameMultiplier, setFrameMultiplier] = useState<number>(0.003);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const canvasContainer = document.getElementById('canvas-container') as HTMLElement;
     canvasContainer.innerHTML = ''; // 기존 p5 인스턴스 제거
 
-    const p5Instance = new p5((p: p5) => Sketch(p, selectedPalette, frameMultiplier, inputText), canvasContainer);
+    const p5Instance = new p5((p: p5) => {
+      Sketch(p, selectedPalette, frameMultiplier, inputText);
+      setLoading(false);
+    }, canvasContainer);
 
     return () => {
       p5Instance.remove();
@@ -45,6 +50,11 @@ const App: React.FC = () => {
 
   return (
     <div className="App">
+      {loading && (
+        <div className="loading-overlay">
+          <Spin size="large" tip="Loading..." />
+        </div>
+      )}
       <InfoMessage />
       <div id="canvas-container"></div>
       <InputPanel onSubmit={handleInputChange} />
