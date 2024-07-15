@@ -8,13 +8,31 @@ html, body {
   position: relative; /* 부모 요소를 기준으로 자식 요소의 위치를 설정 */
 }
 
-#inputContainer {
-  position: absolute;
-  top: 20px;
-  left: 20px;
+.mobile-message {
+  display: none;
 }
 
-#textInput {
-  padding: 10px;
-  font-size: 16px;
+@media only screen and (max-width: 768px) {
+  #canvas-container {
+    display: none;
+  }
+
+  .input-panel .input-group {
+    display: none;
+  }
+
+  .control-panel .ant-slider {
+    display: none;
+  }
+
+  .color-radio {
+    display: none;
+  }
+
+  .mobile-message {
+    display: block;
+    color: white;
+    margin: auto;
+    margin-top: 50%;
+  }
 }

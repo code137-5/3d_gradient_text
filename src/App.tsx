@@ -4,6 +4,7 @@ import Sketch from './sketch';
 import './App.css';
 import ControlPanel from './components/ControlPanel';
 import InputPanel from './components/InputPanel';
+import InfoMessage from './components/InfoMessage';
 import { captureElement } from './utils/capture';
 
 type Palette = keyof ReturnType<typeof import('./colorPalettes').colorPalettes>;
@@ -44,6 +45,7 @@ const App: React.FC = () => {
 
   return (
     <div className="App">
+      <InfoMessage />
       <div id="canvas-container"></div>
       <InputPanel onSubmit={handleInputChange} />
       <ControlPanel onPaletteChange={setSelectedPalette} onFrameMultiplierChange={setFrameMultiplier} />
