@@ -8,6 +8,7 @@ class Square {
   h: number;
   p: p5;
   colors: p5.Color[];
+  frameMultiplier: number;
 
   constructor(
     p: p5,
@@ -16,7 +17,8 @@ class Square {
     z: number,
     w: number,
     h: number,
-    colors: p5.Color[]
+    colors: p5.Color[],
+    frameMultiplier: number
   ) {
     this.p = p;
     this.x = x;
@@ -25,6 +27,7 @@ class Square {
     this.w = w;
     this.h = h;
     this.colors = colors;
+    this.frameMultiplier = frameMultiplier;
   }
 
   show() {
@@ -38,7 +41,7 @@ class Square {
         this.z +
         this.w * 15 +
         this.h +
-        p.frameCount * 0.003) %
+        p.frameCount * this.frameMultiplier) %
       1;
 
     let index = p.floor(diagonalPosition * (this.colors.length - 1));

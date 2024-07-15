@@ -16,3 +16,12 @@
 .control-panel .ant-typography {
   color: white; /* 글자색을 하얀색으로 변경 */
 }
+
+.ant-slider {
+  width: 80%; /* 슬라이더의 넓이를 80%로 설정하여 조작을 더 쉽게 만듭니다 */
+  margin: 20px 0;
+}
+
+.ant-slider-rail {
+  background-color: rgba(255, 255, 255, 0.8); /* 슬라이더의 배경색을 반투명하게 변경 */
+}

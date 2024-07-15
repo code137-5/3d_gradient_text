@@ -1,12 +1,16 @@
 import p5 from "p5";
 import { colorPalettes } from "./colorPalettes";
-import Square from "./Square";
+import Square from "./square";
 
-const Sketch = (p: p5, palette: keyof ReturnType<typeof colorPalettes>) => {
+const Sketch = (
+  p: p5,
+  palette: keyof ReturnType<typeof colorPalettes>,
+  frameMultiplier: number,
+  inputText: string
+) => {
   let squares: Square[] = [];
   let rotationX = 0;
   let rotationY = 0;
-  let inputText = "모두의 연구소";
   let fontEnglish: p5.Font;
   let fontKorean: p5.Font;
   let cam: p5.Camera; // For camera movement
@@ -82,7 +86,9 @@ const Sketch = (p: p5, palette: keyof ReturnType<typeof colorPalettes>) => {
         let x = pt.x - offsetX;
         let y = pt.y - offsetY;
         let zOffset = z * layerSpacing;
-        squares.push(new Square(p, x, y, zOffset, size, size, colors));
+        squares.push(
+          new Square(p, x, y, zOffset, size, size, colors, frameMultiplier)
+        );
       }
     }
   };

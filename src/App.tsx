@@ -10,32 +10,28 @@ type Palette = keyof ReturnType<typeof import('./colorPalettes').colorPalettes>;
 const App: React.FC = () => {
   const [inputText, setInputText] = useState("모두의 연구소");
   const [selectedPalette, setSelectedPalette] = useState<Palette>('lesbian');
+  const [frameMultiplier, setFrameMultiplier] = useState<number>(0.003);
 
   useEffect(() => {
     const canvasContainer = document.getElementById('canvas-container') as HTMLElement;
     canvasContainer.innerHTML = ''; // 기존 p5 인스턴스 제거
 
-    const p5Instance = new p5((p: p5) => Sketch(p, selectedPalette), canvasContainer);
+    const p5Instance = new p5((p: p5) => Sketch(p, selectedPalette, frameMultiplier, inputText), canvasContainer);
 
     return () => {
       p5Instance.remove();
     };
-  }, [selectedPalette]);
+  }, [selectedPalette, frameMultiplier, inputText]);
 
   const handleInputChange = (value: string) => {
     setInputText(value);
   };
 
-  const handleSubmit = () => {
-    const event = new Event('updateText');
-    window.dispatchEvent(event);
-  };
-
   return (
     <div className="App">
       <div id="canvas-container"></div>
-      <InputPanel onSubmit={handleSubmit} onInputChange={handleInputChange} />
-      <ControlPanel onPaletteChange={setSelectedPalette} />
+      <InputPanel onSubmit={handleInputChange} />
+      <ControlPanel onPaletteChange={setSelectedPalette} onFrameMultiplierChange={setFrameMultiplier} />
     </div>
   );
 };
