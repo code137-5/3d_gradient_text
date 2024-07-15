@@ -4,6 +4,7 @@ import Sketch from './sketch';
 import './App.css';
 import ControlPanel from './components/ControlPanel';
 import InputPanel from './components/InputPanel';
+import { captureElement } from './utils/capture';
 
 type Palette = keyof ReturnType<typeof import('./colorPalettes').colorPalettes>;
 
@@ -26,6 +27,20 @@ const App: React.FC = () => {
   const handleInputChange = (value: string) => {
     setInputText(value);
   };
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+        e.preventDefault(); // 기본 저장 동작 방지
+        captureElement('canvas-container'); // use capture function
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
 
   return (
     <div className="App">

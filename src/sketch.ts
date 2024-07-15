@@ -1,6 +1,6 @@
 import p5 from "p5";
 import { colorPalettes } from "./colorPalettes";
-import Square from "./square";
+import Square from "./Square";
 
 const Sketch = (
   p: p5,

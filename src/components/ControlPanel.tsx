@@ -37,6 +37,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onPaletteChange, onFrameMul
         value={frameMultiplier}
         onChange={handleFrameMultiplierChange}                                                  
       />
+      <Typography.Title level={3}>Capture: Ctrl + S</Typography.Title>
       {/* 여기에 다른 조작 버튼들을 추가할 수 있습니다 */}
     </div>
   );
