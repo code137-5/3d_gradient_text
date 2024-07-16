@@ -15,11 +15,10 @@ const Sketch = (
   let fontKorean: p5.Font;
   let cam: p5.Camera; // For camera movement
   let zoom = 800; // Initial zoom level
+  let cameraActive = false; // 카메라 앵글 움직임 상태
 
   p.preload = () => {
-    fontEnglish = p.loadFont(
-      "https://cdnjs.cloudflare.com/ajax/libs/topcoat/0.8.0/font/SourceCodePro-Regular.otf"
-    );
+    fontEnglish = p.loadFont("Roboto-Black.ttf");
     fontKorean = p.loadFont("NotoSansKR-VariableFont_wght.ttf");
   };
 
@@ -27,6 +26,11 @@ const Sketch = (
     p.createCanvas(p.windowWidth, p.windowHeight, p.WEBGL);
     cam = p.createCamera();
     cam.setPosition(0, 0, zoom);
+
+    p.mousePressed = () => {
+      // console.log("mousePressed");
+      cameraActive = !cameraActive; // 마우스 클릭 시 카메라 앵글 움직임 상태 토글
+    };
 
     const textInput = p.select("#textInput")?.elt as HTMLInputElement;
     const submitButton = p.select("#submitButton")?.elt as HTMLElement;
@@ -76,7 +80,7 @@ const Sketch = (
     let offsetY = (maxY + minY) / 2;
 
     let layers = 4; // Number of layers to stack in the z direction
-    let layerSpacing = 20; // Distance between each layer
+    let layerSpacing = 22; // Distance between each layer
     let size = 25; // Size of the squares
 
     let colors = colorPalettes(p)[palette];
@@ -96,10 +100,11 @@ const Sketch = (
   p.draw = () => {
     p.background(0);
 
-    // Rotate the text with mouse movements
-    rotationX = p.map(p.mouseY, 0, p.height, -p.PI, p.PI);
-    rotationY = p.map(p.mouseX, 0, p.width, -p.PI, p.PI);
-
+    if (cameraActive) {
+      // Rotate the text with mouse movements only when cameraActive is true
+      rotationX = p.map(p.mouseY, 0, p.height, -p.PI, p.PI);
+      rotationY = p.map(p.mouseX, 0, p.width, -p.PI, p.PI);
+    }
     cam.setPosition(0, 0, zoom); // Adjust camera position based on zoom
     cam.lookAt(0, 0, 0); // Ensure the camera is looking at the center
 

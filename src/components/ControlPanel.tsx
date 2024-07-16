@@ -31,7 +31,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onPaletteChange, onFrameMul
       <ColorRadio selectedPalette={selectedPalette} onPaletteChange={handlePaletteChange} />
       <Typography.Title level={3}>Frame Count</Typography.Title>
       <Slider
-        min={0.01}
+        min={0.005}
         max={0.03}
         step={0.005}
         value={frameMultiplier}
