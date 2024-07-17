@@ -1,35 +1,56 @@
 import React, { useEffect, useState } from 'react';
 import p5 from 'p5';
-import Sketch from './sketch';
+import Sketch from './Sketch';
+import TextSketch from './TextSketch';
+// import CircleSketch from './CircleSketch';
 import './App.css';
-import { Spin } from 'antd';
 import ControlPanel from './components/ControlPanel';
 import InputPanel from './components/InputPanel';
 import InfoMessage from './components/InfoMessage';
 import { captureElement } from './utils/capture';
 
 type Palette = keyof ReturnType<typeof import('./colorPalettes').colorPalettes>;
-const textSequence = ['모두의연구소', '*****', '$$$$$', '즐거우신가요', '커피사주세요'];
+const textSequence = ['모두의연구소', '아트코리아랩', '아트앤테크', '즐거우신가요', '커피사주세요'];
 
 const App: React.FC = () => {
   const [inputText, setInputText] = useState("모두의연구소");
   const [selectedPalette, setSelectedPalette] = useState<Palette>('lesbian');
   const [frameMultiplier, setFrameMultiplier] = useState<number>(0.003);
-  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const canvasContainer = document.getElementById('canvas-container') as HTMLElement;
     canvasContainer.innerHTML = ''; // 기존 p5 인스턴스 제거
 
+    const p5Instance = new p5(Sketch, canvasContainer);
+
+    return () => {
+      p5Instance.remove();
+    };
+  }, []);
+
+  useEffect(() => {
+    const textCanvasContainer = document.getElementById('text-canvas-container') as HTMLElement;
+    textCanvasContainer.innerHTML = ''; // 기존 p5 인스턴스 제거
+
     const p5Instance = new p5((p: p5) => {
-      Sketch(p, selectedPalette, frameMultiplier, inputText);
-      setLoading(false);
-    }, canvasContainer);
+      TextSketch(p, selectedPalette, frameMultiplier, inputText);
+    }, textCanvasContainer);
 
     return () => {
       p5Instance.remove();
     };
   }, [selectedPalette, frameMultiplier, inputText]);
+
+  // useEffect(() => {
+  //   const circleContainer = document.getElementById('circle-container') as HTMLElement;
+  //   circleContainer.innerHTML = ''; // 기존 p5 인스턴스 제거
+
+  //   const p5Instance = new p5(CircleSketch, circleContainer);
+
+  //   return () => {
+  //     p5Instance.remove();
+  //   };
+  // }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -38,7 +59,7 @@ const App: React.FC = () => {
         const nextIndex = (currentIndex + 1) % textSequence.length;
         return textSequence[nextIndex];
       });
-    }, 5000); // 5초마다 변경
+    }, 8000); // 8초마다 변경
 
     return () => clearInterval(interval); // 컴포넌트 언마운트 시 인터벌 클리어
   }, []);
@@ -63,13 +84,10 @@ const App: React.FC = () => {
 
   return (
     <div className="App">
-      {loading && (
-        <div className="loading-overlay">
-          <Spin size="large" tip="Loading..." />
-        </div>
-      )}
-      <InfoMessage />
       <div id="canvas-container"></div>
+      <div id="text-canvas-container"></div>
+      {/* <div id="circle-container"></div> */}
+      <InfoMessage />
       <InputPanel onSubmit={handleInputChange} />
       <ControlPanel onPaletteChange={setSelectedPalette} onFrameMultiplierChange={setFrameMultiplier} />
     </div>

@@ -15,15 +15,15 @@ const ColorRadio: React.FC<ColorRadioProps> = ({ selectedPalette, onPaletteChang
   return (
     <div className="color-radio">
       <Radio.Group value={selectedPalette} onChange={handlePaletteChange}>
-        <Radio.Button value="lesbian">#1</Radio.Button>
-        <Radio.Button value="gay">#2</Radio.Button>
-        <Radio.Button value="bisexual">#3</Radio.Button>
-        <Radio.Button value="transgender">#4</Radio.Button>
-        <Radio.Button value="nonbinary">#5</Radio.Button>
-        <Radio.Button value="asexual">#6</Radio.Button>
-        <Radio.Button value="intersex">#7</Radio.Button>
-        <Radio.Button value="queer">#8</Radio.Button>
-        <Radio.Button value="genderfluid">#9</Radio.Button>
+        <Radio.Button value="lesbian">L</Radio.Button>
+        <Radio.Button value="gay">G</Radio.Button>
+        <Radio.Button value="bisexual">B</Radio.Button>
+        <Radio.Button value="transgender">T</Radio.Button>
+        <Radio.Button value="nonbinary">NB</Radio.Button>
+        <Radio.Button value="asexual">A</Radio.Button>
+        <Radio.Button value="intersex">I</Radio.Button>
+        <Radio.Button value="queer">Q</Radio.Button>
+        <Radio.Button value="genderfluid">GF</Radio.Button>
       </Radio.Group>
     </div>
   );
