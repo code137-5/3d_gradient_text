@@ -9,9 +9,10 @@ import InfoMessage from './components/InfoMessage';
 import { captureElement } from './utils/capture';
 
 type Palette = keyof ReturnType<typeof import('./colorPalettes').colorPalettes>;
+const textSequence = ['모두의연구소', '*****', '$$$$$', '즐거우신가요', '커피사주세요'];
 
 const App: React.FC = () => {
-  const [inputText, setInputText] = useState("모두의 연구소");
+  const [inputText, setInputText] = useState("모두의연구소");
   const [selectedPalette, setSelectedPalette] = useState<Palette>('lesbian');
   const [frameMultiplier, setFrameMultiplier] = useState<number>(0.003);
   const [loading, setLoading] = useState<boolean>(true);
@@ -29,6 +30,18 @@ const App: React.FC = () => {
       p5Instance.remove();
     };
   }, [selectedPalette, frameMultiplier, inputText]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setInputText(prevText => {
+        const currentIndex = textSequence.indexOf(prevText);
+        const nextIndex = (currentIndex + 1) % textSequence.length;
+        return textSequence[nextIndex];
+      });
+    }, 5000); // 5초마다 변경
+
+    return () => clearInterval(interval); // 컴포넌트 언마운트 시 인터벌 클리어
+  }, []);
 
   const handleInputChange = (value: string) => {
     setInputText(value);

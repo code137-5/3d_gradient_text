@@ -3,7 +3,7 @@
   top: 10px; /* 상단에서의 거리 */
   right: 10px; /* 우측에서의 거리 */
   width: 250px; /* 너비 */
-  min-height: 250px; /* 최소 높이 */
+  min-height: 120px; /* 최소 높이 */
   background: rgba(255, 255, 255, 0.2); /* 반투명 배경 */
   padding: 20px; /* 내부 여백 */
   border-radius: 10px; /* 둥근 모서리 */

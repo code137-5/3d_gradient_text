@@ -1,12 +1,12 @@
 import p5 from "p5";
 
 class Square {
+  p: p5;
   x: number;
   y: number;
   z: number;
   w: number;
   h: number;
-  p: p5;
   colors: p5.Color[];
   frameMultiplier: number;
 
@@ -56,7 +56,7 @@ class Square {
         lerpAmt
       );
     } else {
-      gradientColor = p.color(255); // Fallback color
+      gradientColor = p.color(255);
     }
 
     p.fill(gradientColor);

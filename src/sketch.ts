@@ -15,7 +15,8 @@ const Sketch = (
   let fontKorean: p5.Font;
   let cam: p5.Camera; // For camera movement
   let zoom = 800; // Initial zoom level
-  let cameraActive = false; // 카메라 앵글 움직임 상태
+  let cameraActive = true;
+  // let noiseScale = 0.02;
 
   p.preload = () => {
     fontEnglish = p.loadFont("Roboto-Black.ttf");
@@ -28,7 +29,6 @@ const Sketch = (
     cam.setPosition(0, 0, zoom);
 
     p.mousePressed = () => {
-      // console.log("mousePressed");
       cameraActive = !cameraActive; // 마우스 클릭 시 카메라 앵글 움직임 상태 토글
     };
 
@@ -46,7 +46,6 @@ const Sketch = (
     });
 
     submitButton?.addEventListener("click", generateSquares);
-
     // 초기 상태에서 한 번만 호출
     generateSquares();
   };
@@ -79,8 +78,8 @@ const Sketch = (
     let offsetX = (maxX + minX) / 2;
     let offsetY = (maxY + minY) / 2;
 
-    let layers = 4; // Number of layers to stack in the z direction
-    let layerSpacing = 22; // Distance between each layer
+    let layers = 5; // Number of layers to stack in the z direction
+    let layerSpacing = 18; // Distance between each layer
     let size = 25; // Size of the squares
 
     let colors = colorPalettes(p)[palette];
@@ -99,9 +98,24 @@ const Sketch = (
 
   p.draw = () => {
     p.background(0);
+    // 배경 우주 구름 그리기
+    // p.loadPixels();
+    // for (let x = 0; x < p.width; x++) {
+    //   for (let y = 0; y < p.height; y++) {
+    //     let noiseVal = p.noise(x * noiseScale, y * noiseScale);
+    //     let r = p.map(noiseVal, 0, 1, 10, 30); // 어두운 빨간색 계열
+    //     let g = p.map(noiseVal, 0, 1, 10, 50); // 어두운 초록색 계열
+    //     let b = p.map(noiseVal, 0, 1, 20, 60); // 어두운 파란색 계열
+    //     let index = (x + y * p.width) * 4;
+    //     p.pixels[index] = r;
+    //     p.pixels[index + 1] = g;
+    //     p.pixels[index + 2] = b;
+    //     p.pixels[index + 3] = 255; // 알파 채널
+    //   }
+    // }
+    // p.updatePixels();
 
     if (cameraActive) {
-      // Rotate the text with mouse movements only when cameraActive is true
       rotationX = p.map(p.mouseY, 0, p.height, -p.PI, p.PI);
       rotationY = p.map(p.mouseX, 0, p.width, -p.PI, p.PI);
     }

@@ -1,5 +1,5 @@
 import React, { useState, Dispatch, SetStateAction } from 'react';
-import { Typography, Slider } from 'antd';
+import { Typography } from 'antd';
 import './ControlPanel.css';
 import ColorRadio from './ColorRadio';
 
@@ -12,7 +12,7 @@ interface ControlPanelProps {
 
 const ControlPanel: React.FC<ControlPanelProps> = ({ onPaletteChange, onFrameMultiplierChange }) => {
   const [selectedPalette, setSelectedPalette] = useState<Palette>('lesbian');
-  const [frameMultiplier, setFrameMultiplier] = useState<number>(0.003);
+  // const [frameMultiplier, setFrameMultiplier] = useState<number>(0.003);
 
   const handlePaletteChange = (palette: string) => {
     const paletteKey = palette as Palette;
@@ -20,24 +20,24 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onPaletteChange, onFrameMul
     onPaletteChange(paletteKey);
   };
 
-  const handleFrameMultiplierChange = (value: number) => {
-    setFrameMultiplier(value);
-    onFrameMultiplierChange(value);
-  };
+  // const handleFrameMultiplierChange = (value: number) => {
+  //   setFrameMultiplier(value);
+  //   onFrameMultiplierChange(value);
+  // };
 
   return (
     <div className="control-panel">
       <Typography.Title level={3}>Color Palettes</Typography.Title>
       <ColorRadio selectedPalette={selectedPalette} onPaletteChange={handlePaletteChange} />
-      <Typography.Title level={3}>Frame Count</Typography.Title>
-      <Slider
+      {/* <Typography.Title level={3}>Frame Count</Typography.Title> */}
+      {/* <Slider
         min={0.005}
         max={0.03}
         step={0.005}
         value={frameMultiplier}
         onChange={handleFrameMultiplierChange}                                                  
-      />
-      <Typography.Title level={3}>Capture: Ctrl + S</Typography.Title>
+      /> */}
+      {/* <Typography.Title level={3}>Capture: Ctrl + S</Typography.Title> */}
       {/* 여기에 다른 조작 버튼들을 추가할 수 있습니다 */}
     </div>
   );
