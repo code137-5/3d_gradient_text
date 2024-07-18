@@ -1,10 +1,22 @@
 import p5 from "p5";
+import Star from "./Star";
 
 const Sketch = (p: p5) => {
   let bgGraphics: p5.Graphics;
+  let stars: Star[] = [];
+  let speed: number;
+  let colour: number;
 
   p.setup = () => {
     p.createCanvas(p.windowWidth, p.windowHeight, p.WEBGL);
+    // 별 생성
+    for (let i = 0; i < 800; i++) {
+      stars[i] = new Star(
+        p,
+        p.random(-p.width, p.width),
+        p.random(-p.height, p.height)
+      );
+    }
 
     bgGraphics = p.createGraphics(p.windowWidth, p.windowHeight);
     drawGradient(bgGraphics);
@@ -51,6 +63,17 @@ const Sketch = (p: p5) => {
       p.height * 10
     );
     p.pop();
+
+    // 별 그리기
+    speed = p.map(p.mouseX, 0, p.width, 1, 20);
+    colour = p.map(p.mouseY, 0, p.height, 255, 0);
+
+    p.translate(p.width / 2, p.height / 2, -500);
+
+    for (let i = 0; i < stars.length; i++) {
+      stars[i].update(speed);
+      stars[i].show(colour);
+    }
 
     p.windowResized = () => {
       p.resizeCanvas(p.windowWidth, p.windowHeight);

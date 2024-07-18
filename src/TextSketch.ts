@@ -26,6 +26,7 @@ const TextSketch = (
     p.createCanvas(p.windowWidth, p.windowHeight, p.WEBGL);
     cam = p.createCamera();
     cam.setPosition(0, 0, zoom);
+    cam.lookAt(0, 0, 0);
 
     p.mousePressed = () => {
       cameraActive = !cameraActive; // 마우스 클릭 시 카메라 앵글 움직임 상태 토글
@@ -66,7 +67,7 @@ const TextSketch = (
     }
 
     let points = currentFont.textToPoints(inputText, 0, 0, 200, {
-      sampleFactor: 0.04,
+      sampleFactor: 0.05,
       simplifyThreshold: 0,
     });
 
@@ -79,8 +80,8 @@ const TextSketch = (
     let offsetY = (maxY + minY) / 2;
 
     let layers = 5; // Number of layers to stack in the z direction
-    let layerSpacing = 18; // Distance between each layer
-    let size = 25; // Size of the squares
+    let layerSpacing = 15; // Distance between each layer
+    let size = 20; // Size of the squares
 
     let colors = colorPalettes(p)[palette];
 
@@ -100,8 +101,8 @@ const TextSketch = (
     p.clear(); // Clear the canvas before drawing new frame
 
     if (cameraActive) {
-      rotationX = p.map(p.mouseY, 0, p.height, -p.PI, p.PI);
-      rotationY = p.map(p.mouseX, 0, p.width, -p.PI, p.PI);
+      rotationX = p.map(p.mouseY, 0, p.height, -p.PI / 4, p.PI / 4);
+      rotationY = p.map(p.mouseX, 0, p.width, -p.PI / 4, p.PI / 4);
     }
     cam.setPosition(0, 0, zoom); // Adjust camera position based on zoom
     cam.lookAt(0, 0, 0); // Ensure the camera is looking at the center

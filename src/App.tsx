@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import p5 from 'p5';
-import Sketch from './Sketch';
+import Sketch from './sketch';
 import TextSketch from './TextSketch';
 // import CircleSketch from './CircleSketch';
 import './App.css';
