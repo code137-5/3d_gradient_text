@@ -1,7 +1,6 @@
 import p5 from "p5";
 import { colorPalettes } from "./colorPalettes";
 import Square from "./Square";
-
 const TextSketch = (
   p: p5,
   palette: keyof ReturnType<typeof colorPalettes>,
@@ -14,43 +13,37 @@ const TextSketch = (
   let fontEnglish: p5.Font;
   let fontKorean: p5.Font;
   let cam: p5.Camera; // For camera movement
-  let zoom = 1200; // Initial zoom level
+  let zoom = 1300; // Initial zoom level
   let cameraActive = true;
 
   p.preload = () => {
     fontEnglish = p.loadFont("Roboto-Black.ttf");
     fontKorean = p.loadFont("NotoSansKR-VariableFont_wght.ttf");
   };
-
   p.setup = () => {
     p.createCanvas(p.windowWidth, p.windowHeight, p.WEBGL);
     cam = p.createCamera();
     cam.setPosition(0, 0, zoom);
     cam.lookAt(0, 0, 0);
 
-    p.mousePressed = () => {
-      cameraActive = !cameraActive; // 마우스 클릭 시 카메라 앵글 움직임 상태 토글
-    };
+    // p.mousePressed = () => {
+    //   cameraActive = !cameraActive; // 마우스 클릭 시 카메라 앵글 움직임 상태 토글
+    // };
 
     const textInput = p.select("#textInput")?.elt as HTMLInputElement;
     const submitButton = p.select("#submitButton")?.elt as HTMLElement;
-
     textInput?.addEventListener("input", () => {
       inputText = textInput.value;
       generateSquares();
     });
-
     textInput?.addEventListener("keydown", function (event: KeyboardEvent) {
       if (event.key === "Enter") {
         generateSquares();
       }
     });
-
     submitButton?.addEventListener("click", generateSquares);
-
     generateSquares();
   };
-
   const generateSquares = () => {
     squares = [];
     let currentFont = /[\u3131-\uD79D]/.test(inputText)
@@ -59,7 +52,6 @@ const TextSketch = (
     /[a-zA-Z0-9]/.test(inputText)
       ? (currentFont = fontEnglish)
       : (currentFont = fontKorean);
-
     // 폰트 객체가 유효한지 확인
     if (!currentFont) {
       console.error("Font not loaded correctly");
@@ -75,7 +67,6 @@ const TextSketch = (
     let maxX = Math.max(...points.map((p) => p.x));
     let minY = Math.min(...points.map((p) => p.y));
     let maxY = Math.max(...points.map((p) => p.y));
-
     let offsetX = (maxX + minX) / 2;
     let offsetY = (maxY + minY) / 2;
 
@@ -96,14 +87,14 @@ const TextSketch = (
       }
     }
   };
-
   p.draw = () => {
     p.clear(); // Clear the canvas before drawing new frame
 
     if (cameraActive) {
-      rotationX = p.map(p.mouseY, 0, p.height, -p.PI / 4, p.PI / 4);
-      rotationY = p.map(p.mouseX, 0, p.width, -p.PI / 4, p.PI / 4);
+      rotationX = p.map(p.mouseY, 0, p.height, -p.PI / 6, p.PI / 6);
+      rotationY = p.map(p.mouseX, 0, p.width, -p.PI / 6, p.PI / 6);
     }
+
     cam.setPosition(0, 0, zoom); // Adjust camera position based on zoom
     cam.lookAt(0, 0, 0); // Ensure the camera is looking at the center
 
@@ -114,12 +105,10 @@ const TextSketch = (
       square.show();
     }
   };
-
   p.mouseWheel = (event: WheelEvent) => {
     // Adjust zoom level based on mouse wheel scroll
     zoom -= event.deltaY;
   };
-
   p.keyPressed = () => {
     // Move the camera with arrow keys
     if (p.keyCode === p.LEFT_ARROW) {
@@ -132,11 +121,9 @@ const TextSketch = (
       cam.move(0, 50, 0);
     }
   };
-
   p.windowResized = () => {
     p.resizeCanvas(p.windowWidth, p.windowHeight);
     generateSquares();
   };
 };
-
 export default TextSketch;
