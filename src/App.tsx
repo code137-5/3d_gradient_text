@@ -10,7 +10,7 @@ import InfoMessage from './components/InfoMessage';
 import { captureElement } from './utils/capture';
 
 type Palette = keyof ReturnType<typeof import('./colorPalettes').colorPalettes>;
-const textSequence = ['모두의연구소', '아트코리아랩', '모두의결혼', '사랑이이겼다', '축하합니다'];
+const textSequence = ['모두의연구소', '모두의결혼', '사랑이이겼다', '축하합니다'];
 
 const App: React.FC = () => {
   const [inputText, setInputText] = useState("모두의연구소");

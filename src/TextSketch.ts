@@ -91,12 +91,12 @@ const TextSketch = (
     p.clear(); // Clear the canvas before drawing new frame
 
     if (cameraActive) {
-      rotationX = p.map(p.mouseY, 0, p.height, -p.PI / 6, p.PI / 6);
-      rotationY = p.map(p.mouseX, 0, p.width, -p.PI / 6, p.PI / 6);
+      rotationX = p.map(p.mouseY, 0, p.height, -p.PI / 12, p.PI / 12);
+      rotationY = p.map(p.mouseX, 0, p.width, -p.PI / 12, p.PI / 12);
     }
 
-    cam.setPosition(0, 0, zoom); // Adjust camera position based on zoom
-    cam.lookAt(0, 0, 0); // Ensure the camera is looking at the center
+    // cam.setPosition(0, 0, zoom); // Adjust camera position based on zoom
+    // cam.lookAt(0, 0, 0); // Ensure the camera is looking at the center
 
     p.rotateX(rotationX);
     p.rotateY(rotationY);
